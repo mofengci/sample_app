@@ -1,9 +1,23 @@
-SampleApp::Application.routes.draw do
-  get "static_pages/home"
+SQDB::Application.routes.draw do
 
-  get "static_pages/help"
+  resources :users
 
-  get "static_pages/about"
+  resources :sessions, only: [:new, :create, :destroy]
+
+  root to: 'pages#home'
+
+  match 'result', to: 'result#result'
+
+  match '/help', to: 'pages#help'
+
+  match '/about', to: 'pages#about'
+
+  match 'signin', to: 'sessions#new'
+
+  match 'signup', to: 'users#new'
+
+  match 'signout', to: 'sessions#destroy', via: :delete
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
